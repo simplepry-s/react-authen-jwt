@@ -1,12 +1,21 @@
-import { INCREMENT_TEST } from "../actions/login";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../actions/login";
+import { loggedIn, logout } from "../utils/auth/";
 
-let intialState = { count: 0 };
+let intialState = { isAuthen: loggedIn(), username: "" };
 
 export default (state = intialState, action) => {
   console.log(state);
   switch (action.type) {
-    case INCREMENT_TEST:
-      return Object.assign({}, state, { count: state.count + 1 });
+    case LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        isAuthen: true,
+        username: action.payload.username
+      });
+    case LOGOUT_SUCCESS:
+      return Object.assign({}, state, {
+        isAuthen: false,
+        username: ""
+      });
     default:
       return state;
   }
