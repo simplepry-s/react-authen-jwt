@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import withAuth from "../components/withAuth";
+// import withAuth from "../components/withAuth";
 import { logout } from "../utils/auth/";
 
 const Home = props => {
@@ -12,7 +12,7 @@ const Home = props => {
   };
   return (
     <div>
-      Home Page {count} <button onClick={() => handleLogout()}>OUT</button>
+      Home Page {count} <button onClick={() => handleLogout()}>LOGOUT</button>
     </div>
   );
 };
@@ -20,4 +20,4 @@ const Home = props => {
 const mapStateToProps = state => {
   return { };
 };
-export default connect(mapStateToProps, null)(withAuth(Home));
+export default connect(mapStateToProps, null)(Home);

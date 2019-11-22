@@ -9,14 +9,9 @@ import {
 
 const router = Router();
 
-const LoggerMiddleware = (req, res, next) => {
-  console.log(`Logged  ${req.token}  ${req.method} -- ${new Date()}`);
-  next();
-};
-
 router.post('/account', accountController.Login, generateAccessToken, respond);
 router.get('/account', authenticate, (req, res) => {
-  res.send('hi api');
+  res.send('protect api test');
 });
 
 export default router;

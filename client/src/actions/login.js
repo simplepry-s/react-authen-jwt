@@ -6,7 +6,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const INCREMENT_TEST = "INCREMENT_TEST";
 
-const API = "http://localhost:1337/localhost:8080/api/account";
+const API = "http://localhost:8080/api/account";
 
 export const auth_Login = (username, password, ownProps) => {
   const data = { username, password };
@@ -20,13 +20,13 @@ export const auth_Login = (username, password, ownProps) => {
           payload: response.data
         });
         setToken(response.data.token);
-        console.log("ownProps", ownProps);
+        console.log(response.data);
         ownProps.history.push("/");
       } else {
         notification.error({ message: "LOGIN FAIL" });
       }
     } catch (error) {
-      notification.error({ message: error });
+      notification.error({ message: error.toString() });
     }
   };
 };

@@ -6,23 +6,57 @@ import { Link } from "react-router-dom";
 import { loggedIn } from "../utils/auth/";
 
 const Login = props => {
+  let { isAuthen, actions } = props;
+
   useEffect(() => {
     if (loggedIn()) {
       props.history.replace("/");
     }
   }, []);
-  let { isAuthen, username, token, actions } = props;
-  console.log("isAuthen", isAuthen, "username", username, "token", token);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  console.log(username && password === "");
+
+  const handleChangeUsername = e => {
+    const value = e.target.value;
+    setUsername(value);
+  };
+
+  const handleChangePassword = e => {
+    const value = e.target.value;
+    setPassword(value);
+  };
+
+  const submitLogin = () => {
+    actions.auth_Login(username, password, props);
+  };
+
+  const validate = () => {
+    return username === "" && password === "" ? true : false;
+  };
+
   return (
-    <div>
-      Login Page
-      <button onClick={() => actions.auth_Login("test", "test", props)}>
-        Login!!
-      </button>
-      <Link to="/">
-        <button> Home Page</button>
-      </Link>
-    </div>
+      <div className="loginContainer">
+        <div className="loginInput">
+          <input
+            type="text"
+            value={username}
+            placeholder="username"
+            onChange={e => handleChangeUsername(e)}
+          />
+          <input
+            type="text"
+            value={password}
+            placeholder="password"
+            onChange={e => handleChangePassword(e)}
+          />
+
+          <button disabled={validate()} onClick={() => submitLogin()}>
+            LOGIN
+          </button>
+        </div>
+      </div>
   );
 };
 
@@ -34,9 +68,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isAuthen: state.Login.isAuthen,
-    username: state.Login.username,
-    token: state.Login.token
+    isAuthen: state.Login.isAuthen
   };
 };
 
