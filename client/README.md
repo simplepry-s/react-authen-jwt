@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SIMPLE REACT APP AUTHENTICATION WITH JWT AND MYSQL
 
 ## Available Scripts
 
