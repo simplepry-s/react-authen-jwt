@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import PropsTypes from "prop-types";
 import { auth_Login } from "../actions/login";
-import { Link } from "react-router-dom";
+
 import { loggedIn } from "../utils/auth/";
 
 const Login = props => {
-  let { isAuthen, actions } = props;
+  let { actions } = props;
 
   useEffect(() => {
     if (loggedIn()) {
       props.history.replace("/");
     }
-  }, []);
+  });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  console.log(username && password === "");
 
   const handleChangeUsername = e => {
     const value = e.target.value;
@@ -37,26 +37,26 @@ const Login = props => {
   };
 
   return (
-      <div className="loginContainer">
-        <div className="loginInput">
-          <input
-            type="text"
-            value={username}
-            placeholder="username"
-            onChange={e => handleChangeUsername(e)}
-          />
-          <input
-            type="text"
-            value={password}
-            placeholder="password"
-            onChange={e => handleChangePassword(e)}
-          />
+    <div className="loginContainer">
+      <div className="loginInput">
+        <input
+          type="text"
+          value={username}
+          placeholder="username"
+          onChange={e => handleChangeUsername(e)}
+        />
+        <input
+          type="text"
+          value={password}
+          placeholder="password"
+          onChange={e => handleChangePassword(e)}
+        />
 
-          <button disabled={validate()} onClick={() => submitLogin()}>
-            LOGIN
-          </button>
-        </div>
+        <button disabled={validate()} onClick={() => submitLogin()}>
+          LOGIN
+        </button>
       </div>
+    </div>
   );
 };
 
@@ -70,6 +70,12 @@ const mapStateToProps = state => {
   return {
     isAuthen: state.Login.isAuthen
   };
+};
+
+Login.propsTypes = {
+  history: PropsTypes.shape({
+    replace: PropsTypes.func.isRequired
+  }).isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,23 +1,23 @@
 import React from "react";
-import { connect } from "react-redux";
-// import withAuth from "../components/withAuth";
+import PropsTypes from "prop-types";
 import { logout } from "../utils/auth/";
 
 const Home = props => {
-  let { count } = props;
-
   const handleLogout = () => {
     logout();
     props.history.replace("/login");
   };
   return (
     <div>
-      Home Page {count} <button onClick={() => handleLogout()}>LOGOUT</button>
+      Home Page <button onClick={() => handleLogout()}>LOGOUT</button>
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  return { };
+Home.propsTypes = {
+  history: PropsTypes.shape({
+    replace: PropsTypes.func.isRequired
+  }).isRequired
 };
-export default connect(mapStateToProps, null)(Home);
+
+export default Home;
